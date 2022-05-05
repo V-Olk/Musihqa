@@ -3,12 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.User", "Volkin.Musihqa.User\Volkin.Musihqa.User.csproj", "{0EF16CA7-8B31-4421-9EE7-5574DC0CDCBB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1FCBBACC-7FC8-41D8-8EE2-A63B982D3382}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		..\docker-compose.yml = ..\docker-compose.yml
+		..\README.md = ..\README.md
 		..\docs\Technical requirements.md = ..\docs\Technical requirements.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Volkin.Musihqa.Management", "Volkin.Musihqa.Management", "{B71D4E82-5FF9-4185-81BE-914ACDB3BD65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.Management.WebHost", "Volkin.Musihqa.Management\Volkin.Musihqa.Management.WebHost\Volkin.Musihqa.Management.WebHost.csproj", "{1033D251-CED2-4BD0-8549-9B50AF28ADE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.Management.Core", "Volkin.Musihqa.Management\Volkin.Musihqa.Management.Core\Volkin.Musihqa.Management.Core.csproj", "{F9E0F302-F4D6-4262-A8B7-5B8D67D8D416}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.Management.DataAccess", "Volkin.Musihqa.Management\Volkin.Musihqa.Management.DataAccess\Volkin.Musihqa.Management.DataAccess.csproj", "{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +25,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0EF16CA7-8B31-4421-9EE7-5574DC0CDCBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0EF16CA7-8B31-4421-9EE7-5574DC0CDCBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0EF16CA7-8B31-4421-9EE7-5574DC0CDCBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0EF16CA7-8B31-4421-9EE7-5574DC0CDCBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1033D251-CED2-4BD0-8549-9B50AF28ADE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1033D251-CED2-4BD0-8549-9B50AF28ADE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1033D251-CED2-4BD0-8549-9B50AF28ADE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1033D251-CED2-4BD0-8549-9B50AF28ADE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9E0F302-F4D6-4262-A8B7-5B8D67D8D416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E0F302-F4D6-4262-A8B7-5B8D67D8D416}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E0F302-F4D6-4262-A8B7-5B8D67D8D416}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E0F302-F4D6-4262-A8B7-5B8D67D8D416}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1033D251-CED2-4BD0-8549-9B50AF28ADE6} = {B71D4E82-5FF9-4185-81BE-914ACDB3BD65}
+		{F9E0F302-F4D6-4262-A8B7-5B8D67D8D416} = {B71D4E82-5FF9-4185-81BE-914ACDB3BD65}
+		{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08} = {B71D4E82-5FF9-4185-81BE-914ACDB3BD65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5E779FC-4B23-4E5A-8BC4-036246DEF0B1}
