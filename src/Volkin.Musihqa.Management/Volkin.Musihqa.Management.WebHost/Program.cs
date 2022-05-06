@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Volkin.Musihqa.Management.Core.Abstractions;
 using Volkin.Musihqa.Management.DataAccess.Common;
 using Volkin.Musihqa.Management.DataAccess.Data;
@@ -9,10 +10,10 @@ using Volkin.Musihqa.Management.WebHost.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
+builder.Logging.AddSerilog();
+//builder.Logging.AddConsole();
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers(x => x.SuppressAsyncSuffixInActionNames = true);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -36,28 +37,51 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
-WebApplication app = builder.Build();
+string? environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+IConfigurationRoot? configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{environment}.json", optional: true)
+    .Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+LoggingExtensions.ConfigureLogging(environment, configuration);
+
+try
 {
-    app.UseSwagger(options =>
+    Log.Information("Starting host.");
+
+    WebApplication app = builder.Build();
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
     {
-        options.SerializeAsV2 = true;
-    });
+        app.UseSwagger(options =>
+        {
+            options.SerializeAsV2 = true;
+        });
 
-    app.UseSwaggerUI();
-}
+        app.UseSwaggerUI();
+    }
 
-app.ConfigureCustomExceptionMiddleware();
+    app.ConfigureCustomExceptionMiddleware();
 
-app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
-app.UseAuthorization();
+    app.UseAuthorization();
 
-app.MapControllers();
+    app.MapControllers();
 
-using IServiceScope scope = app.Services.CreateScope();
+    using IServiceScope scope = app.Services.CreateScope();
     scope.ServiceProvider.GetService<IDbInitializer>()?.InitializeDb();
 
-app.Run();
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host failure.");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
+
+
