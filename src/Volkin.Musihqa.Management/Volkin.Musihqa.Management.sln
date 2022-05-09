@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.Management.Core", "Volkin.Musihqa.Management.Core\Volkin.Musihqa.Management.Core.csproj", "{6A9BA8EE-671C-4726-9E63-7ABA39CFA0EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.Management.DataAccess", "Volkin.Musihqa.Management.DataAccess\Volkin.Musihqa.Management.DataAccess.csproj", "{32F8663C-6798-487A-9961-2CD1E61FEAC2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.Management.WebHost", "Volkin.Musihqa.Management.WebHost\Volkin.Musihqa.Management.WebHost.csproj", "{118A7FDB-A79B-46DC-8C94-02F31CE21E96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Docker|Any CPU = Docker|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A9BA8EE-671C-4726-9E63-7ABA39CFA0EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A9BA8EE-671C-4726-9E63-7ABA39CFA0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A9BA8EE-671C-4726-9E63-7ABA39CFA0EF}.Docker|Any CPU.ActiveCfg = Docker|Any CPU
+		{6A9BA8EE-671C-4726-9E63-7ABA39CFA0EF}.Docker|Any CPU.Build.0 = Docker|Any CPU
+		{6A9BA8EE-671C-4726-9E63-7ABA39CFA0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A9BA8EE-671C-4726-9E63-7ABA39CFA0EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32F8663C-6798-487A-9961-2CD1E61FEAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32F8663C-6798-487A-9961-2CD1E61FEAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32F8663C-6798-487A-9961-2CD1E61FEAC2}.Docker|Any CPU.ActiveCfg = Docker|Any CPU
+		{32F8663C-6798-487A-9961-2CD1E61FEAC2}.Docker|Any CPU.Build.0 = Docker|Any CPU
+		{32F8663C-6798-487A-9961-2CD1E61FEAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32F8663C-6798-487A-9961-2CD1E61FEAC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{118A7FDB-A79B-46DC-8C94-02F31CE21E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118A7FDB-A79B-46DC-8C94-02F31CE21E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118A7FDB-A79B-46DC-8C94-02F31CE21E96}.Docker|Any CPU.ActiveCfg = Docker|Any CPU
+		{118A7FDB-A79B-46DC-8C94-02F31CE21E96}.Docker|Any CPU.Build.0 = Docker|Any CPU
+		{118A7FDB-A79B-46DC-8C94-02F31CE21E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118A7FDB-A79B-46DC-8C94-02F31CE21E96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A22E521-4585-4335-8251-C158F3623964}
+	EndGlobalSection
+EndGlobal

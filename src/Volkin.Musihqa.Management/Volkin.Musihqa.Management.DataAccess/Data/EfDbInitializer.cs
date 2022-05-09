@@ -6,10 +6,12 @@ namespace Volkin.Musihqa.Management.DataAccess.Data
         : IDbInitializer
     {
         private readonly DataContext _dataContext;
+        private readonly ILogger _logger;
 
-        public EfDbInitializer(DataContext dataContext)
+        public EfDbInitializer(DataContext dataContext, ILogger<EfDbInitializer> logger)
         {
             _dataContext = dataContext;
+            _logger = logger;
         }
 
         public void InitializeDb()
@@ -19,6 +21,8 @@ namespace Volkin.Musihqa.Management.DataAccess.Data
 
             _dataContext.AddRange(FakeDataFactory.Albums);
             _dataContext.SaveChanges();
+
+            _logger.LogInformation("Database initialized");
         }
     }
 }

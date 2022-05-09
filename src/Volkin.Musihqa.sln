@@ -5,13 +5,17 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1FCBBACC-7FC8-41D8-8EE2-A63B982D3382}"
 	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
 		.editorconfig = .editorconfig
-		..\docker-compose.yml = ..\docker-compose.yml
+		docker-compose.yml = docker-compose.yml
 		..\README.md = ..\README.md
 		..\docs\Technical requirements.md = ..\docs\Technical requirements.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Volkin.Musihqa.Management", "Volkin.Musihqa.Management", "{B71D4E82-5FF9-4185-81BE-914ACDB3BD65}"
+	ProjectSection(SolutionItems) = preProject
+		Volkin.Musihqa.Management\Dockerfile = Volkin.Musihqa.Management\Dockerfile
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.Management.WebHost", "Volkin.Musihqa.Management\Volkin.Musihqa.Management.WebHost\Volkin.Musihqa.Management.WebHost.csproj", "{1033D251-CED2-4BD0-8549-9B50AF28ADE6}"
 EndProject

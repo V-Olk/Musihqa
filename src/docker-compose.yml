@@ -1,14 +1,36 @@
 version: '2.2'
 
 services:
-  management_db:
+
+  # Management Api
+  musihqa-management-api:
+    build: Volkin.Musihqa.Management/
+    container_name: 'musihqa-management-api'
+    restart: always
+    ports:
+      - 8090:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker          
+    depends_on:
+      elastic:
+        condition: service_healthy
+      management-db:
+        condition: service_healthy
+
+  management-db:
     image: postgres:9.6.17
-    container_name: management_db
+    container_name: management-db
     restart: always
     ports:
       - 5434:5432
     environment:
+      - POSTGRES_DB=management_db
       - POSTGRES_PASSWORD=docker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   
   kibana:
     image: kibana:7.16.1

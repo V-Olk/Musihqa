@@ -47,12 +47,13 @@ LoggingExtensions.ConfigureLogging(environment, configuration);
 
 try
 {
-    Log.Information("Starting host.");
+    Log.Information("Starting host");
 
     WebApplication app = builder.Build();
 
     // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
+    if (app.Environment.IsDevelopment()
+        || app.Environment.EnvironmentName is "Docker")
     {
         app.UseSwagger(options =>
         {

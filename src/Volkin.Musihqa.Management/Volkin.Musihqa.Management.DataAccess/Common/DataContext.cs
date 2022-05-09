@@ -33,30 +33,17 @@ namespace Volkin.Musihqa.Management.DataAccess.Common
             modelBuilder.Entity<Artist>()
                 .HasMany(artist => artist.Tracks)
                 .WithOne(track => track.PrimaryArtist);
-
-            //// Link N:N -> Artists:Albums
-            //modelBuilder.Entity<ArtistAlbum>()
-            //    .HasKey(x => new { x.ArtistId, x.AlbumId });
-
-            //modelBuilder.Entity<ArtistAlbum>()
-            //    .HasOne(x => x.Artist)
-            //    .WithMany(artist => artist.Albums)
-            //    .HasForeignKey(x => x.ArtistId);// https://metanit.com/sharp/entityframeworkcore/3.1.php
-
-            //modelBuilder.Entity<ArtistAlbum>()
-            //    .HasOne(x => x.Album)
-            //    .WithMany()
-            //    .HasForeignKey(x => x.AlbumId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+            string? environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{environment}.json", optional: true)
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("ManagementDatabase");
+            string? connectionString = configuration.GetConnectionString("ManagementDatabase");
             optionsBuilder.UseNpgsql(connectionString);
         }
     }
