@@ -27,24 +27,14 @@ namespace Volkin.Musihqa.Management.DataAccess.Common
             // Link 1:N -> Artist:Albums
             modelBuilder.Entity<Artist>()
                 .HasMany(artist => artist.Albums)
-                .WithOne(album => album.PrimaryArtist);
+                .WithOne(album => album.PrimaryArtist)
+                .Metadata.DeleteBehavior = DeleteBehavior.Restrict;// Disable cascade delete
 
             // Link 1:N -> Artist:Tracks
             modelBuilder.Entity<Artist>()
                 .HasMany(artist => artist.Tracks)
-                .WithOne(track => track.PrimaryArtist);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            string? environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment}.json", optional: true)
-                .Build();
-
-            string? connectionString = configuration.GetConnectionString("ManagementDatabase");
-            optionsBuilder.UseNpgsql(connectionString);
+                .WithOne(track => track.PrimaryArtist)
+                .Metadata.DeleteBehavior = DeleteBehavior.Restrict;// Disable cascade delete
         }
     }
 }

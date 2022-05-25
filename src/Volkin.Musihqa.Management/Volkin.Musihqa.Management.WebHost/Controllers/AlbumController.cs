@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Volkin.Musihqa.Management.Core.Domain.Management;
-using Volkin.Musihqa.Management.WebHost.Models.Requests;
+using Volkin.Musihqa.Management.WebHost.Models.Requests.Create;
+using Volkin.Musihqa.Management.WebHost.Models.Requests.Update;
 using Volkin.Musihqa.Management.WebHost.Models.Responses;
 using Volkin.Musihqa.Management.WebHost.Services;
 
@@ -25,7 +26,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpGet("[action]/{artistId:guid}")]
         public async Task<ActionResult<List<AlbumShortResponse>>> GetAlbumsByArtistIdAsync(Guid artistId)
         {
-            List<Album> albums = await _albumService.GetAlbumsByArtistIdAsync(artistId).ConfigureAwait(false);
+            IReadOnlyCollection<Album> albums = await _albumService.GetAlbumsByArtistIdAsync(artistId).ConfigureAwait(false);
 
             List<AlbumShortResponse> albumsResponse = albums.Select(album => new AlbumShortResponse(album)).ToList();
 
@@ -47,7 +48,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         /// <summary> Create a new album with tracks </summary>
         /// <param name="request">Request data</param>
         [HttpPost]
-        public async Task<ActionResult<AlbumResponse>> CreateAlbumAsync(CreateOrUpdateAlbumRequest request)
+        public async Task<ActionResult<AlbumResponse>> CreateAlbumAsync(CreateAlbumRequest request)
         {
             Album album = await _albumService.CreateAlbumAsync(request).ConfigureAwait(false);
 
@@ -78,7 +79,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         ///     }
         /// </remarks>
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<AlbumResponse>> UpdateAlbumAsync(Guid id, CreateOrUpdateAlbumRequest request)
+        public async Task<ActionResult<AlbumResponse>> UpdateAlbumAsync(Guid id, UpdateAlbumRequest request)
         {
             Album album = await _albumService.UpdateAlbumAsync(id, request).ConfigureAwait(false);
 

@@ -1,42 +1,47 @@
 ﻿using Volkin.Musihqa.Management.Core.Domain.Management;
-using Volkin.Musihqa.Management.WebHost.Models.Requests;
+using Volkin.Musihqa.Management.WebHost.Models.Requests.Create;
+using Volkin.Musihqa.Management.WebHost.Models.Requests.Update;
 
 namespace Volkin.Musihqa.Management.WebHost.Mappers
 {
     public static class AlbumMapper
     {
-        public static Album MapFromRequest(CreateOrUpdateAlbumRequest request,
+        public static Album MapFromCreateRequest(CreateAlbumRequest request,
             Artist primaryArtist,
-            IEnumerable<Artist> featuredArtists,
-            Album? album = null)
+            IEnumerable<Artist> featuredArtists)
         {
-            album ??= new Album();
-
-            album.Name = request.Name;
-            album.CoverLink = request.CoverLink;
-
-            album.PrimaryArtist = primaryArtist;
-            album.FeaturedArtists = featuredArtists.ToList();
-
-
+            var album = new Album(request.Name!,
+                request.CoverLink!,
+                request.ReleaseDate,
+                primaryArtist,
+                featuredArtists: featuredArtists.ToList()
+            );
 
             return album;
         }
 
-        internal static void MapTrackFromRequest(Album album, CreateOrUpdateTrackRequest trackRequest, Artist artist, IEnumerable<Artist> featuredArtists, ICollection<Track> oldTracks = default!)
+        internal static Track MapTrackFromCreateRequest(CreateTrackRequest trackRequest,
+            Artist artist,
+            IEnumerable<Artist> featuredArtists)
+        {
+            var track = new Track(trackRequest.TrackName!, artist, featuredArtists.ToList());
+
+            return track;
+        }
+
+        internal static Track MapTrackFromUpdateRequest(UpdateTrackRequest trackRequest,
+            Artist artist,
+            IEnumerable<Artist> featuredArtists,
+            Dictionary<Guid, Track> oldTracks)
         {
             Track? track = null;
 
-            if (oldTracks.Count != 0 && trackRequest.TrackId != null)
-                track = oldTracks.FirstOrDefault(tr => tr.Id == trackRequest.TrackId);
+            if (oldTracks.Count == 0 && trackRequest.TrackId != null)
+                oldTracks.TryGetValue(trackRequest.TrackId.Value, out track);
 
-            track ??= new Track();
+            track ??= new Track(trackRequest.TrackName!, artist, featuredArtists.ToList());
 
-            album.Tracks.Add(track);
-
-            track.Name = trackRequest.TrackName;
-            track.PrimaryArtist = artist;
-            track.FeaturedArtists = featuredArtists.ToList();
+            return track;
         }
     }
 }

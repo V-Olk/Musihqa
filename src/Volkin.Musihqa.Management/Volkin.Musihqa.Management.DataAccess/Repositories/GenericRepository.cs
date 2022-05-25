@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Volkin.Musihqa.Management.Core.Abstractions;
 using Volkin.Musihqa.Management.Core.Domain;
 using Volkin.Musihqa.Management.DataAccess.Common;
+using Volkin.Musihqa.Management.DataAccess.Common.Extensions;
 
 namespace Volkin.Musihqa.Management.DataAccess.Repositories
 {
@@ -17,29 +19,20 @@ namespace Volkin.Musihqa.Management.DataAccess.Repositories
         }
 
         public async Task AddAsync(T entity)
-        {
-            await DataContext.Set<T>().AddAsync(entity).ConfigureAwait(false);
-            await UpdateAsync();
-        }
+            => await DataContext.Set<T>().AddAsync(entity).ConfigureAwait(false);
 
-        public async Task DeleteAsync(T entity)
-        {
-            DataContext.Set<T>().Remove(entity);
-            await UpdateAsync();
-        }
+        public void Delete(T entity)
+            => DataContext.Set<T>().Remove(entity);
 
-        public async Task<IEnumerable<T>> GetAllAsync()
-            => await DataContext.Set<T>().ToListAsync().ConfigureAwait(false);
+        public Task<T?> GetByIdOrDefaultAsync(Guid id, params Expression<Func<T, object>>[] includes)
+            => DataContext.Set<T>().IncludeMultiple(includes).FirstOrDefaultAsync(e => e.Id.Equals(id));
 
-        public async Task<T?> GetByIdAsync(Guid id)
-            => await DataContext.Set<T>().FirstOrDefaultAsync(e => e.Id.Equals(id)).ConfigureAwait(false);
-
-        public async Task<IEnumerable<T>> GetByIdsAsync(IEnumerable<Guid> ids)
-            => await DataContext.Set<T>().Join(ids, t => t.Id, id => id, (t, id) => t).ToListAsync().ConfigureAwait(false);
-
-        public async Task UpdateAsync()
-            => await DataContext.SaveChangesAsync().ConfigureAwait(false);
+        public async Task<IReadOnlyCollection<T>> GetByIdsAsync(IEnumerable<Guid> ids)
+            => await DataContext.Set<T>().Where(t => ids.Contains(t.Id)).ToArrayAsync().ConfigureAwait(false);
 
     }
 
+
 }
+
+

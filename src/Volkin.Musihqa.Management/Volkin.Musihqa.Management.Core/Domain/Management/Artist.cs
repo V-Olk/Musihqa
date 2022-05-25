@@ -2,14 +2,23 @@
 {
     public class Artist : BaseEntity
     {
-        public string Name { get; set; } = default!;
+        // ReSharper disable once UnusedMember.Local
+        private Artist() { }
 
-        public string Description { get; set; } = default!;
+        public Artist(Guid id, string name, string description) : base(id)
+        {
+            Name = name;
+            Description = description;
+        }
 
-        public virtual ICollection<Album>? Albums { get; set; }
-        public virtual ICollection<Track>? Tracks { get; set; }
+        public string Name { get; private set; } = default!;
 
-        public virtual ICollection<Album>? FeaturedInAlbums { get; set; }
-        public virtual ICollection<Track>? FeaturedInTracks { get; set; }
+        public string Description { get; private set; } = default!;
+
+        public IReadOnlyCollection<Album>? Albums { get; private set; }
+        public IReadOnlyCollection<Track>? Tracks { get; private set; }
+
+        public IReadOnlyCollection<Album>? FeaturedInAlbums { get; private set; }
+        public IReadOnlyCollection<Track>? FeaturedInTracks { get; private set; }
     }
 }

@@ -1,20 +1,17 @@
-﻿using Volkin.Musihqa.Management.Core.Domain;
+﻿using System.Linq.Expressions;
+using Volkin.Musihqa.Management.Core.Domain;
 
 namespace Volkin.Musihqa.Management.Core.Abstractions
 {
     public interface IRepository<T>
         where T : BaseEntity
     {
-        Task<T?> GetByIdAsync(Guid id);
+        Task<T?> GetByIdOrDefaultAsync(Guid id, params Expression<Func<T, object>>[] includes);
 
-        Task<IEnumerable<T>> GetByIdsAsync(IEnumerable<Guid> ids);
-
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IReadOnlyCollection<T>> GetByIdsAsync(IEnumerable<Guid> ids);
 
         Task AddAsync(T entity);
 
-        Task UpdateAsync();
-
-        Task DeleteAsync(T entity);
+        void Delete(T entity);
     }
 }

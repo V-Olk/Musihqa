@@ -4,19 +4,19 @@ namespace Volkin.Musihqa.Management.WebHost.Models.Responses
 {
     public class AlbumResponse
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
-        public string CoverLink { get; set; }
+        public string CoverLink { get; }
 
-        public DateTime ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; }
 
-        public ArtistShortResponse PrimaryArtist { get; set; }
+        public ArtistShortResponse PrimaryArtist { get; }
 
-        public ICollection<ArtistShortResponse> FeaturedArtists { get; set; }
+        public IReadOnlyCollection<ArtistShortResponse> FeaturedArtists { get; }
 
-        public ICollection<TrackShortResponse> Tracks { get; set; }
+        public IReadOnlyCollection<TrackShortResponse> Tracks { get; }
 
         public AlbumResponse(Album album)
         {

@@ -19,7 +19,10 @@ builder.Services.AddControllers(x => x.SuppressAsyncSuffixInActionNames = true);
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddScoped<IAlbumService, AlbumService>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
+builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
+
 builder.Services.AddScoped<IManagementUnitOfWork, ManagementUnitOfWork>();
 builder.Services.AddScoped<IDbInitializer, EfDbInitializer>();
 
@@ -27,7 +30,6 @@ string? connectionString = builder.Configuration.GetConnectionString("Management
 builder.Services.AddDbContext<DataContext>(x =>
 {
     x.UseNpgsql(connectionString);
-    x.UseLazyLoadingProxies();
 });
 
 builder.Services.AddSwaggerGen(options =>

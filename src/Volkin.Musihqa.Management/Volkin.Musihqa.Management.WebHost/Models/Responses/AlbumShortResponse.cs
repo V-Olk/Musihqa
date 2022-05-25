@@ -10,7 +10,7 @@ namespace Volkin.Musihqa.Management.WebHost.Models.Responses
 
         public string CoverLink { get; set; }
 
-        public ArtistShortResponse PrimaryArtist { get; set; }
+        //public ArtistShortResponse PrimaryArtist { get; set; }
 
         public DateTime ReleaseDate { get; set; }
 
@@ -20,7 +20,7 @@ namespace Volkin.Musihqa.Management.WebHost.Models.Responses
             Name = album.Name;
             CoverLink = album.CoverLink;
             ReleaseDate = album.ReleaseDate;
-            PrimaryArtist = new ArtistShortResponse(album.PrimaryArtist);
+            //PrimaryArtist = new ArtistShortResponse(album.PrimaryArtist);
         }
     }
 }
