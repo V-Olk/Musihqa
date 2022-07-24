@@ -1,6 +1,6 @@
-﻿using Volkin.Musihqa.Management.Core.Domain.Management;
+﻿using Volkin.Musihqa.Management.Domain.Models.Management;
 
-namespace Volkin.Musihqa.Management.Core.Abstractions
+namespace Volkin.Musihqa.Management.Domain.Abstractions
 {
     public interface IArtistRepository : IRepository<Artist>
     {

@@ -1,6 +1,6 @@
-﻿using Volkin.Musihqa.Management.Core.Abstractions;
-using Volkin.Musihqa.Management.Core.Domain.Management;
-using Volkin.Musihqa.Management.Core.Exceptions;
+﻿using Volkin.Musihqa.Management.Core.Exceptions;
+using Volkin.Musihqa.Management.Domain.Abstractions;
+using Volkin.Musihqa.Management.Domain.Models.Management;
 using Volkin.Musihqa.Management.WebHost.Mappers;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Create;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Update;

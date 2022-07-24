@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Volkin.Musihqa.Management.Core\Volkin.Musihqa.Management.Core.csproj" />
+		<ProjectReference Include="..\Volkin.Musihqa.Management.Core\Volkin.Musihqa.Management.Domain.csproj" />
 		<ProjectReference Include="..\Volkin.Musihqa.Management.DataAccess\Volkin.Musihqa.Management.DataAccess.csproj" />
 	</ItemGroup>
 

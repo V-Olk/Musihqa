@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Volkin.Musihqa.Management.Core.Abstractions;
-using Volkin.Musihqa.Management.Core.Domain.Management;
 using Volkin.Musihqa.Management.DataAccess.Common;
+using Volkin.Musihqa.Management.Domain.Abstractions;
+using Volkin.Musihqa.Management.Domain.Models.Management;
 
 namespace Volkin.Musihqa.Management.DataAccess.Repositories
 {

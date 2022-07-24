@@ -1,4 +1,4 @@
-﻿namespace Volkin.Musihqa.Management.Core.Domain.Management
+﻿namespace Volkin.Musihqa.Management.Domain.Models.Management
 {
     public class Album : BaseEntity
     {

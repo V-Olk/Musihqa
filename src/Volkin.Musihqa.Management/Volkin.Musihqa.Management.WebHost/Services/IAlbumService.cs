@@ -1,4 +1,4 @@
-﻿using Volkin.Musihqa.Management.Core.Domain.Management;
+﻿using Volkin.Musihqa.Management.Domain.Models.Management;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Create;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Update;
 

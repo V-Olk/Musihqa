@@ -1,4 +1,4 @@
-﻿namespace Volkin.Musihqa.Management.Core.Abstractions
+﻿namespace Volkin.Musihqa.Management.Domain.Abstractions
 {
     public interface IManagementUnitOfWork
     {

@@ -1,4 +1,4 @@
-﻿using Volkin.Musihqa.Management.Core.Abstractions;
+﻿using Volkin.Musihqa.Management.Domain.Abstractions;
 
 namespace Volkin.Musihqa.Management.DataAccess.Common
 {

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Volkin.Musihqa.Management.Core": {
+    "Volkin.Musihqa.Management.Domain": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

@@ -1,10 +1,10 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Volkin.Musihqa.Management.Core.Abstractions;
 using Volkin.Musihqa.Management.DataAccess.Common;
 using Volkin.Musihqa.Management.DataAccess.Data;
 using Volkin.Musihqa.Management.DataAccess.Repositories;
+using Volkin.Musihqa.Management.Domain.Abstractions;
 using Volkin.Musihqa.Management.WebHost.Common.Extensions;
 using Volkin.Musihqa.Management.WebHost.Services;
 

@@ -1,4 +1,5 @@
-﻿using Volkin.Musihqa.Management.DataAccess.Common;
+﻿using Microsoft.Extensions.Logging;
+using Volkin.Musihqa.Management.DataAccess.Common;
 
 namespace Volkin.Musihqa.Management.DataAccess.Data
 {

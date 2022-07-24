@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Volkin.Musihqa.Management.Core.Domain.Management;
+using Volkin.Musihqa.Management.Domain.Models.Management;
 
 namespace Volkin.Musihqa.Management.DataAccess.Common
 {

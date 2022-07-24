@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using Volkin.Musihqa.Management.Core.Domain;
+using Volkin.Musihqa.Management.Domain.Models;
 
-namespace Volkin.Musihqa.Management.Core.Abstractions
+namespace Volkin.Musihqa.Management.Domain.Abstractions
 {
     public interface IRepository<T>
         where T : BaseEntity

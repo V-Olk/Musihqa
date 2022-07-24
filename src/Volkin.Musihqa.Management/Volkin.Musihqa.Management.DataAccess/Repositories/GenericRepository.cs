@@ -1,9 +1,9 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Volkin.Musihqa.Management.Core.Abstractions;
-using Volkin.Musihqa.Management.Core.Domain;
 using Volkin.Musihqa.Management.DataAccess.Common;
 using Volkin.Musihqa.Management.DataAccess.Common.Extensions;
+using Volkin.Musihqa.Management.Domain.Abstractions;
+using Volkin.Musihqa.Management.Domain.Models;
 
 namespace Volkin.Musihqa.Management.DataAccess.Repositories
 {

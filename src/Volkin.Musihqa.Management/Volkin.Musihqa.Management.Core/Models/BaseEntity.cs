@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Volkin.Musihqa.Management.Core.Domain
+namespace Volkin.Musihqa.Management.Domain.Models
 {
     public class BaseEntity
     {
