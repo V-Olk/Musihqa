@@ -17,7 +17,7 @@ namespace Volkin.Musihqa.Management.DataAccess.Common
         public IAlbumRepository Album { get; }
         public IArtistRepository Artist { get; }
 
-        public async Task CompleteAsync() => await _context.SaveChangesAsync().ConfigureAwait(false);
+        public async Task CompleteAsync() => await _context.SaveChangesAsync();
 
     }
 }

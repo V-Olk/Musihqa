@@ -19,7 +19,7 @@ namespace Volkin.Musihqa.Management.DataAccess.Repositories
         }
 
         public async Task AddAsync(T entity)
-            => await DataContext.Set<T>().AddAsync(entity).ConfigureAwait(false);
+            => await DataContext.Set<T>().AddAsync(entity);
 
         public void Delete(T entity)
             => DataContext.Set<T>().Remove(entity);
@@ -28,7 +28,7 @@ namespace Volkin.Musihqa.Management.DataAccess.Repositories
             => DataContext.Set<T>().IncludeMultiple(includes).FirstOrDefaultAsync(e => e.Id.Equals(id));
 
         public async Task<IReadOnlyCollection<T>> GetByIdsAsync(IEnumerable<Guid> ids)
-            => await DataContext.Set<T>().Where(t => ids.Contains(t.Id)).ToArrayAsync().ConfigureAwait(false);
+            => await DataContext.Set<T>().Where(t => ids.Contains(t.Id)).ToArrayAsync();
 
     }
 

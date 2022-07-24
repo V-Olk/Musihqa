@@ -17,14 +17,14 @@ namespace Volkin.Musihqa.Management.WebHost.Services
         }
 
         public async Task<Album?> GetAlbumAsync(Guid id)
-            => await _managementUnitOfWork.Album.GetFullAlbumByIdOrDefaultAsync(id).ConfigureAwait(false);
+            => await _managementUnitOfWork.Album.GetFullAlbumByIdOrDefaultAsync(id);
 
         public async Task<IReadOnlyCollection<Album>> GetAlbumsByArtistIdAsync(Guid artistId)
-            => await _managementUnitOfWork.Album.GetByArtistIdAsync(artistId).ConfigureAwait(false);
+            => await _managementUnitOfWork.Album.GetByArtistIdAsync(artistId);
 
         public async Task<Album> CreateAlbumAsync(CreateAlbumRequest request)
         {
-            Artist? artist = await _managementUnitOfWork.Artist.GetByIdOrDefaultAsync(request.PrimaryArtist).ConfigureAwait(false);
+            Artist? artist = await _managementUnitOfWork.Artist.GetByIdOrDefaultAsync(request.PrimaryArtist);
             if (artist is null)
                 throw new EntityNotFoundException(nameof(_managementUnitOfWork.Artist), request.PrimaryArtist);
 
@@ -32,20 +32,20 @@ namespace Volkin.Musihqa.Management.WebHost.Services
             if (request.FeaturedArtistsIds is null)
                 featuredArtists = new List<Artist>();
             else
-                featuredArtists = await _managementUnitOfWork.Artist.GetByIdsAsync(request.FeaturedArtistsIds).ConfigureAwait(false);
+                featuredArtists = await _managementUnitOfWork.Artist.GetByIdsAsync(request.FeaturedArtistsIds);
 
             Album album = AlbumMapper.MapFromCreateRequest(request, artist, featuredArtists);
-            await CreateTrackList(request.TracksRequest!, album).ConfigureAwait(false);
+            await CreateTrackList(request.TracksRequest!, album);
 
-            await _managementUnitOfWork.Album.AddAsync(album).ConfigureAwait(false);
-            await _managementUnitOfWork.CompleteAsync().ConfigureAwait(false);
+            await _managementUnitOfWork.Album.AddAsync(album);
+            await _managementUnitOfWork.CompleteAsync();
 
             return album;
         }
 
         public async Task<Album> UpdateAlbumAsync(Guid id, UpdateAlbumRequest request)
         {
-            Album? album = await _managementUnitOfWork.Album.GetFullAlbumByIdOrDefaultAsync(id).ConfigureAwait(false);
+            Album? album = await _managementUnitOfWork.Album.GetFullAlbumByIdOrDefaultAsync(id);
             if (album is null)
                 throw new EntityNotFoundException(nameof(_managementUnitOfWork.Album), id);
 
@@ -53,26 +53,26 @@ namespace Volkin.Musihqa.Management.WebHost.Services
             if (request.FeaturedArtistsIds is null)
                 featuredArtists = new List<Artist>();
             else
-                featuredArtists = await _managementUnitOfWork.Artist.GetByIdsAsync(request.FeaturedArtistsIds).ConfigureAwait(false);
+                featuredArtists = await _managementUnitOfWork.Artist.GetByIdsAsync(request.FeaturedArtistsIds);
 
             album.Update(request.Name!, request.CoverLink!, request.ReleaseDate, featuredArtists);
 
             if (request.TracksRequest != null)
-                await UpdateTrackList(request.TracksRequest, album).ConfigureAwait(false);
+                await UpdateTrackList(request.TracksRequest, album);
 
-            await _managementUnitOfWork.CompleteAsync().ConfigureAwait(false);
+            await _managementUnitOfWork.CompleteAsync();
 
             return album;
         }
 
         public async Task<Album> DeleteAlbumAsync(Guid id)
         {
-            Album? album = await _managementUnitOfWork.Album.GetByIdOrDefaultAsync(id).ConfigureAwait(false);
+            Album? album = await _managementUnitOfWork.Album.GetByIdOrDefaultAsync(id);
             if (album is null)
                 throw new EntityNotFoundException(nameof(_managementUnitOfWork.Album), id);
 
             _managementUnitOfWork.Album.Delete(album);
-            await _managementUnitOfWork.CompleteAsync().ConfigureAwait(false);
+            await _managementUnitOfWork.CompleteAsync();
 
             return album;
         }
@@ -85,7 +85,7 @@ namespace Volkin.Musihqa.Management.WebHost.Services
                 if (trackRequest.FeaturedArtistsIds != null)
                 {
                     featuredArtists = await _managementUnitOfWork.Artist
-                        .GetByIdsAsync(trackRequest.FeaturedArtistsIds).ConfigureAwait(false);
+                        .GetByIdsAsync(trackRequest.FeaturedArtistsIds);
                 }
                 else
                 {
@@ -108,7 +108,7 @@ namespace Volkin.Musihqa.Management.WebHost.Services
                 if (trackRequest.FeaturedArtistsIds != null)
                 {
                     featuredArtists = await _managementUnitOfWork.Artist
-                        .GetByIdsAsync(trackRequest.FeaturedArtistsIds).ConfigureAwait(false);
+                        .GetByIdsAsync(trackRequest.FeaturedArtistsIds);
                 }
                 else
                 {

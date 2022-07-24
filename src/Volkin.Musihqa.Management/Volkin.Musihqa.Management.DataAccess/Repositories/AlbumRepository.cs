@@ -16,7 +16,7 @@ namespace Volkin.Musihqa.Management.DataAccess.Repositories
 
         //TODO: optimize
         public async Task<IReadOnlyCollection<Album>> GetByArtistIdAsync(Guid artistId)
-            => await DataContext.Set<Album>().Where(e => e.PrimaryArtist.Id.Equals(artistId)).ToArrayAsync().ConfigureAwait(false);
+            => await DataContext.Set<Album>().Where(e => e.PrimaryArtist.Id.Equals(artistId)).ToArrayAsync();
 
         public async Task<Album?> GetFullAlbumByIdOrDefaultAsync(Guid artistId)
             => await GetByIdOrDefaultAsync(artistId, a => a.PrimaryArtist, a => a.FeaturedArtists, a => a.Tracks);

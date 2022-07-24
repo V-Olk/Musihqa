@@ -26,7 +26,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpGet("[action]/{artistId:guid}")]
         public async Task<ActionResult<List<AlbumShortResponse>>> GetAlbumsByArtistIdAsync(Guid artistId)
         {
-            IReadOnlyCollection<Album> albums = await _albumService.GetAlbumsByArtistIdAsync(artistId).ConfigureAwait(false);
+            IReadOnlyCollection<Album> albums = await _albumService.GetAlbumsByArtistIdAsync(artistId);
 
             List<AlbumShortResponse> albumsResponse = albums.Select(album => new AlbumShortResponse(album)).ToList();
 
@@ -38,7 +38,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<AlbumResponse>> GetAlbumAsync(Guid id)
         {
-            Album? album = await _albumService.GetAlbumAsync(id).ConfigureAwait(false);
+            Album? album = await _albumService.GetAlbumAsync(id);
             if (album is null)
                 return NotFound();
 
@@ -50,7 +50,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpPost]
         public async Task<ActionResult<AlbumResponse>> CreateAlbumAsync(CreateAlbumRequest request)
         {
-            Album album = await _albumService.CreateAlbumAsync(request).ConfigureAwait(false);
+            Album album = await _albumService.CreateAlbumAsync(request);
 
             return CreatedAtAction("GetAlbum", new { id = album.Id }, null);
         }
@@ -81,7 +81,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<AlbumResponse>> UpdateAlbumAsync(Guid id, UpdateAlbumRequest request)
         {
-            Album album = await _albumService.UpdateAlbumAsync(id, request).ConfigureAwait(false);
+            Album album = await _albumService.UpdateAlbumAsync(id, request);
 
             return new AlbumResponse(album);
         }
@@ -91,7 +91,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<AlbumShortResponse>> DeleteAlbumAsync(Guid id)
         {
-            Album album = await _albumService.DeleteAlbumAsync(id).ConfigureAwait(false);
+            Album album = await _albumService.DeleteAlbumAsync(id);
 
             return new AlbumShortResponse(album);
         }
