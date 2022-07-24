@@ -1,4 +1,4 @@
-﻿namespace Volkin.Musihqa.Management.Core.Exceptions
+﻿namespace Volkin.Musihqa.Management.Domain.Exceptions
 {
     public class EntityNotFoundException : Exception
     {

@@ -5,6 +5,6 @@
         IAlbumRepository Album { get; }
         IArtistRepository Artist { get; }
 
-        Task CompleteAsync();
+        Task CompleteAsync(CancellationToken cancellationToken);
     }
 }

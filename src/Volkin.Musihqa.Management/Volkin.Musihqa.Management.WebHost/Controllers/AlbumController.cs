@@ -23,10 +23,12 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
 
         /// <summary> Get albums by artist id </summary>
         /// <param name="artistId">Artist id, like <example>071ac86c-db64-4548-8e24-9af58d036084</example></param>
+        /// <param name="cancellationToken"></param>
         [HttpGet("[action]/{artistId:guid}")]
-        public async Task<ActionResult<List<AlbumShortResponse>>> GetAlbumsByArtistIdAsync(Guid artistId)
+        public async Task<ActionResult<List<AlbumShortResponse>>> GetAlbumsByArtistIdAsync(Guid artistId,
+            CancellationToken cancellationToken)
         {
-            IReadOnlyCollection<Album> albums = await _albumService.GetAlbumsByArtistIdAsync(artistId);
+            IReadOnlyCollection<Album> albums = await _albumService.GetAlbumsByArtistIdAsync(artistId, cancellationToken);
 
             List<AlbumShortResponse> albumsResponse = albums.Select(album => new AlbumShortResponse(album)).ToList();
 
@@ -35,10 +37,11 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
 
         /// <summary> Get album by id with tracks </summary>
         /// <param name="id">Album id, like <example>e17f299f-92d7-459f-896e-078ed53ef99c</example></param>
+        /// <param name="cancellationToken"></param>
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<AlbumResponse>> GetAlbumAsync(Guid id)
+        public async Task<ActionResult<AlbumResponse>> GetAlbumAsync(Guid id, CancellationToken cancellationToken)
         {
-            Album? album = await _albumService.GetAlbumAsync(id);
+            Album? album = await _albumService.GetAlbumAsync(id, cancellationToken);
             if (album is null)
                 return NotFound();
 
@@ -47,10 +50,11 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
 
         /// <summary> Create a new album with tracks </summary>
         /// <param name="request">Request data</param>
+        /// <param name="cancellationToken"></param>
         [HttpPost]
-        public async Task<ActionResult<AlbumResponse>> CreateAlbumAsync(CreateAlbumRequest request)
+        public async Task<ActionResult<AlbumResponse>> CreateAlbumAsync(CreateAlbumRequest request, CancellationToken cancellationToken)
         {
-            Album album = await _albumService.CreateAlbumAsync(request);
+            Album album = await _albumService.CreateAlbumAsync(request, cancellationToken);
 
             return CreatedAtAction("GetAlbum", new { id = album.Id }, null);
         }
@@ -58,9 +62,10 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         /// <summary> Update album with tracks </summary>
         /// <param name="id">Album id, like <example>e17f299f-92d7-459f-896e-078ed53ef99c</example></param>
         /// <param name="request">Request data</param>
+        /// <param name="cancellationToken"></param>
         /// /// <remarks>
         /// Sample request:
-        ///
+        /// 
         ///     POST /Album
         ///     {
         ///         "name": "Requiem updated",
@@ -79,19 +84,20 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         ///     }
         /// </remarks>
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<AlbumResponse>> UpdateAlbumAsync(Guid id, UpdateAlbumRequest request)
+        public async Task<ActionResult<AlbumResponse>> UpdateAlbumAsync(Guid id, UpdateAlbumRequest request, CancellationToken cancellationToken)
         {
-            Album album = await _albumService.UpdateAlbumAsync(id, request);
+            Album album = await _albumService.UpdateAlbumAsync(id, request, cancellationToken);
 
             return new AlbumResponse(album);
         }
 
         /// <summary> Delete album with all its tracks </summary>
         /// <param name="id">Album id, like <example>e17f299f-92d7-459f-896e-078ed53ef99c</example></param>
+        /// <param name="cancellationToken"></param>
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult<AlbumShortResponse>> DeleteAlbumAsync(Guid id)
+        public async Task<ActionResult<AlbumShortResponse>> DeleteAlbumAsync(Guid id, CancellationToken cancellationToken)
         {
-            Album album = await _albumService.DeleteAlbumAsync(id);
+            Album album = await _albumService.DeleteAlbumAsync(id, cancellationToken);
 
             return new AlbumShortResponse(album);
         }

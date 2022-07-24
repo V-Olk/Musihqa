@@ -18,17 +18,17 @@ namespace Volkin.Musihqa.Management.DataAccess.Repositories
             DataContext = dataContext;
         }
 
-        public async Task AddAsync(T entity)
-            => await DataContext.Set<T>().AddAsync(entity);
+        public async Task AddAsync(T entity, CancellationToken cancellationToken)
+            => await DataContext.Set<T>().AddAsync(entity, cancellationToken);
 
         public void Delete(T entity)
             => DataContext.Set<T>().Remove(entity);
 
-        public Task<T?> GetByIdOrDefaultAsync(Guid id, params Expression<Func<T, object>>[] includes)
-            => DataContext.Set<T>().IncludeMultiple(includes).FirstOrDefaultAsync(e => e.Id.Equals(id));
+        public Task<T?> GetByIdOrDefaultAsync(Guid id, CancellationToken cancellationToken, params Expression<Func<T, object>>[] includes)
+            => DataContext.Set<T>().IncludeMultiple(includes).FirstOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
 
-        public async Task<IReadOnlyCollection<T>> GetByIdsAsync(IEnumerable<Guid> ids)
-            => await DataContext.Set<T>().Where(t => ids.Contains(t.Id)).ToArrayAsync();
+        public async Task<IReadOnlyCollection<T>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+            => await DataContext.Set<T>().Where(t => ids.Contains(t.Id)).ToArrayAsync(cancellationToken);
 
     }
 

@@ -1,5 +1,5 @@
-﻿using Volkin.Musihqa.Management.Core.Exceptions;
-using Volkin.Musihqa.Management.Domain.Abstractions;
+﻿using Volkin.Musihqa.Management.Domain.Abstractions;
+using Volkin.Musihqa.Management.Domain.Exceptions;
 using Volkin.Musihqa.Management.Domain.Models.Management;
 using Volkin.Musihqa.Management.WebHost.Mappers;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Create;
@@ -16,15 +16,15 @@ namespace Volkin.Musihqa.Management.WebHost.Services
             _managementUnitOfWork = managementUnitOfWork;
         }
 
-        public async Task<Album?> GetAlbumAsync(Guid id)
-            => await _managementUnitOfWork.Album.GetFullAlbumByIdOrDefaultAsync(id);
+        public async Task<Album?> GetAlbumAsync(Guid id, CancellationToken cancellationToken)
+            => await _managementUnitOfWork.Album.GetFullAlbumByIdOrDefaultAsync(id, cancellationToken);
 
-        public async Task<IReadOnlyCollection<Album>> GetAlbumsByArtistIdAsync(Guid artistId)
-            => await _managementUnitOfWork.Album.GetByArtistIdAsync(artistId);
+        public async Task<IReadOnlyCollection<Album>> GetAlbumsByArtistIdAsync(Guid artistId, CancellationToken cancellationToken)
+            => await _managementUnitOfWork.Album.GetByArtistIdAsync(artistId, cancellationToken);
 
-        public async Task<Album> CreateAlbumAsync(CreateAlbumRequest request)
+        public async Task<Album> CreateAlbumAsync(CreateAlbumRequest request, CancellationToken cancellationToken)
         {
-            Artist? artist = await _managementUnitOfWork.Artist.GetByIdOrDefaultAsync(request.PrimaryArtist);
+            Artist? artist = await _managementUnitOfWork.Artist.GetByIdOrDefaultAsync(request.PrimaryArtist, cancellationToken);
             if (artist is null)
                 throw new EntityNotFoundException(nameof(_managementUnitOfWork.Artist), request.PrimaryArtist);
 
@@ -32,20 +32,20 @@ namespace Volkin.Musihqa.Management.WebHost.Services
             if (request.FeaturedArtistsIds is null)
                 featuredArtists = new List<Artist>();
             else
-                featuredArtists = await _managementUnitOfWork.Artist.GetByIdsAsync(request.FeaturedArtistsIds);
+                featuredArtists = await _managementUnitOfWork.Artist.GetByIdsAsync(request.FeaturedArtistsIds, cancellationToken);
 
             Album album = AlbumMapper.MapFromCreateRequest(request, artist, featuredArtists);
-            await CreateTrackList(request.TracksRequest!, album);
+            await CreateTrackList(request.TracksRequest!, album, cancellationToken);
 
-            await _managementUnitOfWork.Album.AddAsync(album);
-            await _managementUnitOfWork.CompleteAsync();
+            await _managementUnitOfWork.Album.AddAsync(album, cancellationToken);
+            await _managementUnitOfWork.CompleteAsync(cancellationToken);
 
             return album;
         }
 
-        public async Task<Album> UpdateAlbumAsync(Guid id, UpdateAlbumRequest request)
+        public async Task<Album> UpdateAlbumAsync(Guid id, UpdateAlbumRequest request, CancellationToken cancellationToken)
         {
-            Album? album = await _managementUnitOfWork.Album.GetFullAlbumByIdOrDefaultAsync(id);
+            Album? album = await _managementUnitOfWork.Album.GetFullAlbumByIdOrDefaultAsync(id, cancellationToken);
             if (album is null)
                 throw new EntityNotFoundException(nameof(_managementUnitOfWork.Album), id);
 
@@ -53,31 +53,31 @@ namespace Volkin.Musihqa.Management.WebHost.Services
             if (request.FeaturedArtistsIds is null)
                 featuredArtists = new List<Artist>();
             else
-                featuredArtists = await _managementUnitOfWork.Artist.GetByIdsAsync(request.FeaturedArtistsIds);
+                featuredArtists = await _managementUnitOfWork.Artist.GetByIdsAsync(request.FeaturedArtistsIds, cancellationToken);
 
             album.Update(request.Name!, request.CoverLink!, request.ReleaseDate, featuredArtists);
 
             if (request.TracksRequest != null)
-                await UpdateTrackList(request.TracksRequest, album);
+                await UpdateTrackList(request.TracksRequest, album, cancellationToken);
 
-            await _managementUnitOfWork.CompleteAsync();
+            await _managementUnitOfWork.CompleteAsync(cancellationToken);
 
             return album;
         }
 
-        public async Task<Album> DeleteAlbumAsync(Guid id)
+        public async Task<Album> DeleteAlbumAsync(Guid id, CancellationToken cancellationToken)
         {
-            Album? album = await _managementUnitOfWork.Album.GetByIdOrDefaultAsync(id);
+            Album? album = await _managementUnitOfWork.Album.GetByIdOrDefaultAsync(id, cancellationToken);
             if (album is null)
                 throw new EntityNotFoundException(nameof(_managementUnitOfWork.Album), id);
 
             _managementUnitOfWork.Album.Delete(album);
-            await _managementUnitOfWork.CompleteAsync();
+            await _managementUnitOfWork.CompleteAsync(cancellationToken);
 
             return album;
         }
 
-        private async Task CreateTrackList(List<CreateTrackRequest> tracksRequest, Album album)
+        private async Task CreateTrackList(List<CreateTrackRequest> tracksRequest, Album album, CancellationToken cancellationToken)
         {
             foreach (CreateTrackRequest trackRequest in tracksRequest)
             {
@@ -85,7 +85,7 @@ namespace Volkin.Musihqa.Management.WebHost.Services
                 if (trackRequest.FeaturedArtistsIds != null)
                 {
                     featuredArtists = await _managementUnitOfWork.Artist
-                        .GetByIdsAsync(trackRequest.FeaturedArtistsIds);
+                        .GetByIdsAsync(trackRequest.FeaturedArtistsIds, cancellationToken);
                 }
                 else
                 {
@@ -97,7 +97,7 @@ namespace Volkin.Musihqa.Management.WebHost.Services
             }
         }
 
-        private async Task UpdateTrackList(List<UpdateTrackRequest> tracksRequest, Album album)
+        private async Task UpdateTrackList(List<UpdateTrackRequest> tracksRequest, Album album, CancellationToken cancellationToken)
         {
             var oldTracks = album.Tracks.ToDictionary(key => key.Id);
             album.ClearTracks();
@@ -108,7 +108,7 @@ namespace Volkin.Musihqa.Management.WebHost.Services
                 if (trackRequest.FeaturedArtistsIds != null)
                 {
                     featuredArtists = await _managementUnitOfWork.Artist
-                        .GetByIdsAsync(trackRequest.FeaturedArtistsIds);
+                        .GetByIdsAsync(trackRequest.FeaturedArtistsIds, cancellationToken);
                 }
                 else
                 {
