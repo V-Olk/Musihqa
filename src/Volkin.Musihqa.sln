@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.Management.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volkin.Musihqa.Management.DataAccess", "Volkin.Musihqa.Management\Volkin.Musihqa.Management.DataAccess\Volkin.Musihqa.Management.DataAccess.csproj", "{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Volkin.Musihqa.Management.Application", "Volkin.Musihqa.Management\Volkin.Musihqa.Management.Application\Volkin.Musihqa.Management.Application.csproj", "{A3B8E1CB-4955-4321-B194-6B873DB3497F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B8E1CB-4955-4321-B194-6B873DB3497F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B8E1CB-4955-4321-B194-6B873DB3497F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B8E1CB-4955-4321-B194-6B873DB3497F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B8E1CB-4955-4321-B194-6B873DB3497F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{1033D251-CED2-4BD0-8549-9B50AF28ADE6} = {B71D4E82-5FF9-4185-81BE-914ACDB3BD65}
 		{F9E0F302-F4D6-4262-A8B7-5B8D67D8D416} = {B71D4E82-5FF9-4185-81BE-914ACDB3BD65}
 		{6F8F8109-3B8E-4B3F-B4F2-F8F8E6741B08} = {B71D4E82-5FF9-4185-81BE-914ACDB3BD65}
+		{A3B8E1CB-4955-4321-B194-6B873DB3497F} = {B71D4E82-5FF9-4185-81BE-914ACDB3BD65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5E779FC-4B23-4E5A-8BC4-036246DEF0B1}
