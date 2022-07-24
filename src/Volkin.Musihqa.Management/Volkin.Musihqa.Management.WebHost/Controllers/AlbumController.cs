@@ -11,7 +11,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
     /// <summary> Albums CRUD </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class AlbumController : Controller
+    public class AlbumController : ControllerBase
     {
         private readonly IAlbumService _albumService;
         //private readonly ILogger<AlbumController> _logger;//TODO
