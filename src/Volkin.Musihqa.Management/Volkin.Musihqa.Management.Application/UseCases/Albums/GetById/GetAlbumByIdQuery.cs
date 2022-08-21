@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Volkin.Musihqa.Management.Domain.UseCases;
+﻿using Volkin.Musihqa.Management.Domain.UseCases;
 
 namespace Volkin.Musihqa.Management.Application.UseCases.Albums.GetById;
 

@@ -1,5 +1,4 @@
-﻿using Volkin.Musihqa.Management.Application.UseCases.Albums.GetByArtistId;
-using Volkin.Musihqa.Management.Domain.Abstractions;
+﻿using Volkin.Musihqa.Management.Domain.Abstractions;
 using Volkin.Musihqa.Management.Domain.UseCases.Handlers;
 
 namespace Volkin.Musihqa.Management.Application.UseCases.Albums.GetById
