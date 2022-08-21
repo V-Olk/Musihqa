@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Volkin.Musihqa.Management.Application.UseCases.Albums.GetByArtistId;
+using Volkin.Musihqa.Management.Application.UseCases.Albums.GetById;
 using Volkin.Musihqa.Management.Domain.Models.Management;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Create;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Update;
@@ -29,12 +30,12 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         public async Task<ActionResult<AlbumsByArtistIdResponse>> GetAlbumsByArtistIdAsync(Guid artistId,
             CancellationToken cancellationToken)
         {
-            GetAlbumsByArtistIdResult result = await Send(new GetAlbumsByArtistIdQuery(artistId), cancellationToken);
+            GetAlbumsByArtistIdResult albumsByArtistIdResult = await Send(new GetAlbumsByArtistIdQuery(artistId), cancellationToken);
 
-            if (!result.Albums.Any())
+            if (!albumsByArtistIdResult.Albums.Any())
                 return NotFound();
 
-            return Ok(new AlbumsByArtistIdResponse(result));
+            return Ok(new AlbumsByArtistIdResponse(albumsByArtistIdResult));
         }
 
         /// <summary> Get album by id with tracks </summary>
@@ -43,11 +44,12 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<AlbumResponse>> GetAlbumAsync(Guid id, CancellationToken cancellationToken)
         {
-            Album? album = await _albumService.GetAlbumAsync(id, cancellationToken);
-            if (album is null)
+            GetAlbumByIdResult albumByIdResult = await Send(new GetAlbumByIdQuery(id), cancellationToken);
+
+            if (albumByIdResult.Album is null)
                 return NotFound();
 
-            return Ok(new AlbumResponse(album));
+            return Ok(new AlbumResponse(albumByIdResult.Album));
         }
 
         /// <summary> Create a new album with tracks </summary>
