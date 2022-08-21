@@ -18,7 +18,7 @@ services:
         condition: service_healthy
 
   management-db:
-    image: postgres:9.6.17
+    image: postgres:14.4
     container_name: management-db
     restart: always
     ports:

@@ -13,6 +13,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MediatR" Version="10.0.1" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
 		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
 		<PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
@@ -21,6 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Volkin.Musihqa.Management.Application\Volkin.Musihqa.Management.Application.csproj" />
 		<ProjectReference Include="..\Volkin.Musihqa.Management.Core\Volkin.Musihqa.Management.Domain.csproj" />
 		<ProjectReference Include="..\Volkin.Musihqa.Management.DataAccess\Volkin.Musihqa.Management.DataAccess.csproj" />
 	</ItemGroup>

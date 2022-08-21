@@ -19,9 +19,6 @@ namespace Volkin.Musihqa.Management.WebHost.Services
         public async Task<Album?> GetAlbumAsync(Guid id, CancellationToken cancellationToken)
             => await _managementUnitOfWork.Album.GetFullAlbumByIdOrDefaultAsync(id, cancellationToken);
 
-        public async Task<IReadOnlyCollection<Album>> GetAlbumsByArtistIdAsync(Guid artistId, CancellationToken cancellationToken)
-            => await _managementUnitOfWork.Album.GetByArtistIdAsync(artistId, cancellationToken);
-
         public async Task<Album> CreateAlbumAsync(CreateAlbumRequest request, CancellationToken cancellationToken)
         {
             Artist? artist = await _managementUnitOfWork.Artist.GetByIdOrDefaultAsync(request.PrimaryArtist, cancellationToken);

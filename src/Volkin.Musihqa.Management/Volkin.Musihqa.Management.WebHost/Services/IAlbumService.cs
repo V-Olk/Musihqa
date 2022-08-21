@@ -7,7 +7,6 @@ namespace Volkin.Musihqa.Management.WebHost.Services
     public interface IAlbumService
     {
         public Task<Album?> GetAlbumAsync(Guid id, CancellationToken cancellationToken);
-        public Task<IReadOnlyCollection<Album>> GetAlbumsByArtistIdAsync(Guid artistId, CancellationToken cancellationToken);
         public Task<Album> CreateAlbumAsync(CreateAlbumRequest request, CancellationToken cancellationToken);
         public Task<Album> UpdateAlbumAsync(Guid id, UpdateAlbumRequest request, CancellationToken cancellationToken);
         public Task<Album> DeleteAlbumAsync(Guid id, CancellationToken cancellationToken);

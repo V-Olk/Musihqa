@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Volkin.Musihqa.Management.Application.UseCases.Albums.GetByArtistId;
 using Volkin.Musihqa.Management.Domain.Models.Management;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Create;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Update;
@@ -11,7 +12,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
     /// <summary> Albums CRUD </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class AlbumController : ControllerBase
+    public class AlbumController : MediatRControllerBase
     {
         private readonly IAlbumService _albumService;
         //private readonly ILogger<AlbumController> _logger;//TODO
@@ -25,14 +26,15 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         /// <param name="artistId">Artist id, like <example>071ac86c-db64-4548-8e24-9af58d036084</example></param>
         /// <param name="cancellationToken"></param>
         [HttpGet("[action]/{artistId:guid}")]
-        public async Task<ActionResult<List<AlbumShortResponse>>> GetAlbumsByArtistIdAsync(Guid artistId,
+        public async Task<ActionResult<AlbumsByArtistIdResponse>> GetAlbumsByArtistIdAsync(Guid artistId,
             CancellationToken cancellationToken)
         {
-            IReadOnlyCollection<Album> albums = await _albumService.GetAlbumsByArtistIdAsync(artistId, cancellationToken);
+            GetAlbumsByArtistIdResult result = await Send(new GetAlbumsByArtistIdQuery(artistId), cancellationToken);
 
-            List<AlbumShortResponse> albumsResponse = albums.Select(album => new AlbumShortResponse(album)).ToList();
+            if (!result.Albums.Any())
+                return NotFound();
 
-            return Ok(albumsResponse);
+            return Ok(new AlbumsByArtistIdResponse(result));
         }
 
         /// <summary> Get album by id with tracks </summary>

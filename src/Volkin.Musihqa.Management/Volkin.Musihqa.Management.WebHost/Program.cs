@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Volkin.Musihqa.Management.Application.Common;
 using Volkin.Musihqa.Management.DataAccess.Common;
 using Volkin.Musihqa.Management.DataAccess.Data;
 using Volkin.Musihqa.Management.DataAccess.Repositories;
@@ -25,6 +26,8 @@ builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
 
 builder.Services.AddScoped<IManagementUnitOfWork, ManagementUnitOfWork>();
 builder.Services.AddScoped<IDbInitializer, EfDbInitializer>();
+
+builder.Services.AddApplication();
 
 string? connectionString = builder.Configuration.GetConnectionString("ManagementDatabase");
 builder.Services.AddDbContext<DataContext>(x =>
