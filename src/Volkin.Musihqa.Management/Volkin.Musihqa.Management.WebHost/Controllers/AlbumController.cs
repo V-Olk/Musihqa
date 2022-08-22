@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Volkin.Musihqa.Management.Application.UseCases.Albums.Create;
 using Volkin.Musihqa.Management.Application.UseCases.Albums.GetByArtistId;
 using Volkin.Musihqa.Management.Application.UseCases.Albums.GetById;
 using Volkin.Musihqa.Management.Domain.Models.Management;
@@ -58,9 +59,9 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpPost]
         public async Task<ActionResult<AlbumResponse>> CreateAlbumAsync(CreateAlbumRequest request, CancellationToken cancellationToken)
         {
-            Album album = await _albumService.CreateAlbumAsync(request, cancellationToken);
-
-            return CreatedAtAction("GetAlbum", new { id = album.Id }, null);
+            CreateAlbumResult createAlbumResult = await Send(new CreateAlbumCommand(request), cancellationToken);
+            
+            return CreatedAtAction("GetAlbum", new { id = createAlbumResult.Album.Id }, null);
         }
 
         /// <summary> Update album with tracks </summary>

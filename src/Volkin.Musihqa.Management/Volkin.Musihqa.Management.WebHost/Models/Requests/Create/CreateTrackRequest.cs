@@ -1,6 +1,8 @@
-﻿namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Create
+﻿using Volkin.Musihqa.Management.Domain.Requests.Tracks;
+
+namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Create
 {
-    public class CreateTrackRequest
+    public class CreateTrackRequest : ICreateTrackRequest
     {
         public string? TrackName { get; init; }
 

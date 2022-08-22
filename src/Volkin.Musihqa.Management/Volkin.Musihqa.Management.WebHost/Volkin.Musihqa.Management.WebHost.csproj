@@ -28,4 +28,12 @@
 		<ProjectReference Include="..\Volkin.Musihqa.Management.DataAccess\Volkin.Musihqa.Management.DataAccess.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Mappers" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Mappers\AlbumMapper.cs" />
+	</ItemGroup>
+
 </Project>

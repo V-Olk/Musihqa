@@ -1,6 +1,8 @@
-﻿namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Update
+﻿using Volkin.Musihqa.Management.Domain.Requests.Tracks;
+
+namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Update
 {
-    public class UpdateTrackRequest
+    public class UpdateTrackRequest : IUpdateTrackRequest
     {
         public Guid? TrackId { get; init; }
 

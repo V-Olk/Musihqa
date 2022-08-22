@@ -1,6 +1,9 @@
-﻿namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Create
+﻿using Volkin.Musihqa.Management.Domain.Requests.Albums;
+using Volkin.Musihqa.Management.Domain.Requests.Tracks;
+
+namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Create
 {
-    public class CreateAlbumRequest
+    public class CreateAlbumRequest : ICreateAlbumRequest
     {
         public string? Name { get; init; }
 
@@ -12,6 +15,6 @@
 
         public List<Guid>? FeaturedArtistsIds { get; init; }
 
-        public List<CreateTrackRequest>? TracksRequest { get; init; }
+        public List<ICreateTrackRequest>? TracksRequest { get; init; }
     }
 }
