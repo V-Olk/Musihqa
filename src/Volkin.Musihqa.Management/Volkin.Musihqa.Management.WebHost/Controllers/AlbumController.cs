@@ -2,6 +2,7 @@
 using Volkin.Musihqa.Management.Application.UseCases.Albums.Create;
 using Volkin.Musihqa.Management.Application.UseCases.Albums.GetByArtistId;
 using Volkin.Musihqa.Management.Application.UseCases.Albums.GetById;
+using Volkin.Musihqa.Management.Application.UseCases.Albums.Update;
 using Volkin.Musihqa.Management.Domain.Models.Management;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Create;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Update;
@@ -65,7 +66,6 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         }
 
         /// <summary> Update album with tracks </summary>
-        /// <param name="id">Album id, like <example>e17f299f-92d7-459f-896e-078ed53ef99c</example></param>
         /// <param name="request">Request data</param>
         /// <param name="cancellationToken"></param>
         /// /// <remarks>
@@ -73,6 +73,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         /// 
         ///     POST /Album
         ///     {
+        ///         "id": "e17f299f-92d7-459f-896e-078ed53ef99c",
         ///         "name": "Requiem updated",
         ///         "coverLink": "https://upload.wikimedia.org/wikipedia/en/4/43/Korn_-_Requiem.png",
         ///         "primaryArtist": "071ac86c-db64-4548-8e24-9af58d036084",
@@ -89,11 +90,11 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         ///     }
         /// </remarks>
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<AlbumResponse>> UpdateAlbumAsync(Guid id, UpdateAlbumRequest request, CancellationToken cancellationToken)
+        public async Task<ActionResult<AlbumResponse>> UpdateAlbumAsync(UpdateAlbumRequest request, CancellationToken cancellationToken)
         {
-            Album album = await _albumService.UpdateAlbumAsync(id, request, cancellationToken);
+            UpdateAlbumResult createAlbumResult = await Send(new UpdateAlbumCommand(request), cancellationToken);
 
-            return new AlbumResponse(album);
+            return new AlbumResponse(createAlbumResult.Album);
         }
 
         /// <summary> Delete album with all its tracks </summary>
