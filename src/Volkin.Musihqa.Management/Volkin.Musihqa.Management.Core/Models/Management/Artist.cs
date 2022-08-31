@@ -11,9 +11,9 @@
             Description = description;
         }
 
-        public string Name { get; private set; } = default!;
+        public string Name { get; private set; } = String.Empty;
 
-        public string Description { get; private set; } = default!;
+        public string Description { get; private set; } = String.Empty;
 
         public IReadOnlyCollection<Album>? Albums { get; private set; }
         public IReadOnlyCollection<Track>? Tracks { get; private set; }

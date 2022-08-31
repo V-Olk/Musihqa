@@ -24,7 +24,7 @@
                 FeaturedArtists = featuredArtists;
         }
 
-        public string Name { get; private set; } = default!;
+        public string Name { get; private set; } = String.Empty;
 
         public Album Album { get; private set; } = default!;
 

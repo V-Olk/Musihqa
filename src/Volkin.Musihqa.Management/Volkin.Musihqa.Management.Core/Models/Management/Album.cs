@@ -46,13 +46,13 @@
             _featuredArtists = featuredArtists != null ? featuredArtists.ToList() : new List<Artist>();
         }
 
-        public string Name { get; private set; } = default!;
+        public string Name { get; private set; }
 
-        public string CoverLink { get; private set; } = default!;
+        public string CoverLink { get; private set; }
 
         public DateTime ReleaseDate { get; private set; }
 
-        public Artist PrimaryArtist { get; } = default!;
+        public Artist PrimaryArtist { get; }
 
         public IReadOnlyCollection<Artist> FeaturedArtists => _featuredArtists;
 
