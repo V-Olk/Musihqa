@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Volkin.Musihqa.Management.Application.UseCases.Albums.Create;
+using Volkin.Musihqa.Management.Application.UseCases.Albums.Delete;
 using Volkin.Musihqa.Management.Application.UseCases.Albums.GetByArtistId;
 using Volkin.Musihqa.Management.Application.UseCases.Albums.GetById;
 using Volkin.Musihqa.Management.Application.UseCases.Albums.Update;
-using Volkin.Musihqa.Management.Domain.Models.Management;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Create;
 using Volkin.Musihqa.Management.WebHost.Models.Requests.Update;
 using Volkin.Musihqa.Management.WebHost.Models.Responses;
-using Volkin.Musihqa.Management.WebHost.Services;
 
 namespace Volkin.Musihqa.Management.WebHost.Controllers
 {
@@ -17,13 +16,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
     [Route("api/v1/[controller]")]
     public class AlbumController : MediatRControllerBase
     {
-        private readonly IAlbumService _albumService;
         //private readonly ILogger<AlbumController> _logger;//TODO
-
-        public AlbumController(IAlbumService albumService)
-        {
-            _albumService = albumService;
-        }
 
         /// <summary> Get albums by artist id </summary>
         /// <param name="artistId">Artist id, like <example>071ac86c-db64-4548-8e24-9af58d036084</example></param>
@@ -103,9 +96,9 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<AlbumShortResponse>> DeleteAlbumAsync(Guid id, CancellationToken cancellationToken)
         {
-            Album album = await _albumService.DeleteAlbumAsync(id, cancellationToken);
+            DeleteAlbumResult deleteAlbumResult = await Send(new DeleteAlbumCommand(id), cancellationToken);
 
-            return new AlbumShortResponse(album);
+            return new AlbumShortResponse(deleteAlbumResult.Album);
         }
     }
 }

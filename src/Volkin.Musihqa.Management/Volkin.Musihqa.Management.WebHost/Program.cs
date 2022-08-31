@@ -7,7 +7,6 @@ using Volkin.Musihqa.Management.DataAccess.Data;
 using Volkin.Musihqa.Management.DataAccess.Repositories;
 using Volkin.Musihqa.Management.Domain.Abstractions;
 using Volkin.Musihqa.Management.WebHost.Common.Extensions;
-using Volkin.Musihqa.Management.WebHost.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -18,8 +17,6 @@ builder.Logging.AddSerilog();
 builder.Services.AddControllers(x => x.SuppressAsyncSuffixInActionNames = true);
 
 builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddScoped<IAlbumService, AlbumService>();
 
 builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
