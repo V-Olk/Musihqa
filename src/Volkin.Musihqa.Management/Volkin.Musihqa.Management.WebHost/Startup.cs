@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Volkin.Musihqa.Management.Application.Common;
 using Volkin.Musihqa.Management.DataAccess.Common;
-using Volkin.Musihqa.Management.DataAccess.Data;
-using Volkin.Musihqa.Management.DataAccess.Repositories;
-using Volkin.Musihqa.Management.Domain.Abstractions;
 using Volkin.Musihqa.Management.WebHost.Common.Extensions;
 
 namespace Volkin.Musihqa.Management.WebHost
@@ -20,12 +17,7 @@ namespace Volkin.Musihqa.Management.WebHost
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IAlbumRepository, AlbumRepository>();
-            services.AddScoped<IArtistRepository, ArtistRepository>();
-            
-            services.AddScoped<IManagementUnitOfWork, ManagementUnitOfWork>();
-            services.AddScoped<IDbInitializer, EfDbInitializer>();
-            
+            services.AddDataAccess();
             services.AddApplication();
 
             string? connectionString = _сonfiguration.GetConnectionString("ManagementDatabase");

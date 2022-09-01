@@ -5,9 +5,8 @@ using Volkin.Musihqa.Management.Domain.Models.Management;
 
 namespace Volkin.Musihqa.Management.DataAccess.Repositories
 {
-    public class AlbumRepository : GenericRepository<Album>, IAlbumRepository
+    internal class AlbumRepository : GenericRepository<Album>, IAlbumRepository
     {
-
 
         public AlbumRepository(DataContext dataContext) : base(dataContext)
         {

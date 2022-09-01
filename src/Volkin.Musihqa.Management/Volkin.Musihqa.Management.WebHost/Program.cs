@@ -11,7 +11,7 @@ namespace Volkin.Musihqa.Management.WebHost
             try
             {
                 Log.Information("Creating host builder");
-                IHostBuilder builder = CreateWebHostBuilder(args);
+                IHostBuilder builder = CreateHostBuilder(args);
 
                 Log.Information("Building host");
                 IHost? app = builder.Build();
@@ -34,7 +34,7 @@ namespace Volkin.Musihqa.Management.WebHost
             }
         }
 
-        private static IHostBuilder CreateWebHostBuilder(string[] args)
+        private static IHostBuilder CreateHostBuilder(string[] args)
         {
             var builder = Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
@@ -48,13 +48,7 @@ namespace Volkin.Musihqa.Management.WebHost
                 logging.AddSerilog();
             });
 
-            string? environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            IConfigurationRoot? configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{environment}.json", true)
-                .Build();
-
-            LoggingExtensions.ConfigureLogging(environment, configuration);
+            LoggingExtensions.ConfigureSerilog();
 
             return builder;
         }

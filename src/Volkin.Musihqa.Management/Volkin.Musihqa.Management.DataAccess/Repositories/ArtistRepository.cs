@@ -4,7 +4,7 @@ using Volkin.Musihqa.Management.Domain.Models.Management;
 
 namespace Volkin.Musihqa.Management.DataAccess.Repositories
 {
-    public class ArtistRepository : GenericRepository<Artist>, IArtistRepository
+    internal class ArtistRepository : GenericRepository<Artist>, IArtistRepository
     {
         public ArtistRepository(DataContext dataContext) : base(dataContext)
         {

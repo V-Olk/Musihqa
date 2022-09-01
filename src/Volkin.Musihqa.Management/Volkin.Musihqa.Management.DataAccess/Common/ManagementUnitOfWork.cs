@@ -2,7 +2,7 @@
 
 namespace Volkin.Musihqa.Management.DataAccess.Common
 {
-    public class ManagementUnitOfWork : IManagementUnitOfWork
+    internal class ManagementUnitOfWork : IManagementUnitOfWork
     {
         private readonly DataContext _context;
 

@@ -3,7 +3,7 @@ using Volkin.Musihqa.Management.DataAccess.Common;
 
 namespace Volkin.Musihqa.Management.DataAccess.Data
 {
-    public class EfDbInitializer
+    internal class EfDbInitializer
         : IDbInitializer
     {
         private readonly DataContext _dataContext;
