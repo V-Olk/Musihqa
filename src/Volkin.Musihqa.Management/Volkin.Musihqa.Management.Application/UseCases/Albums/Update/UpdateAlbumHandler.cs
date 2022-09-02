@@ -32,8 +32,8 @@ namespace Volkin.Musihqa.Management.Application.UseCases.Albums.Update
 
             album.Update(request.Name!, request.CoverLink!, request.ReleaseDate, featuredArtists);
 
-            if (request.TracksRequest != null)
-                await UpdateTrackList(request.TracksRequest, album, cancellationToken);
+            if (updateAlbumCommand.TracksRequests is not null)
+                await UpdateTrackList(updateAlbumCommand.TracksRequests, album, cancellationToken);
 
             await _managementUnitOfWork.CompleteAsync(cancellationToken);
 
@@ -41,12 +41,12 @@ namespace Volkin.Musihqa.Management.Application.UseCases.Albums.Update
 
         }
 
-        private async Task UpdateTrackList(List<IUpdateTrackRequest> tracksRequest, Album album, CancellationToken cancellationToken)
+        private async Task UpdateTrackList(IEnumerable<IUpdateTrackRequest> requests, Album album, CancellationToken cancellationToken)
         {
-            var oldTracks = album.Tracks.ToDictionary(key => key.Id);
+            Dictionary<Guid, Track> oldTracks = album.Tracks.ToDictionary(key => key.Id);
             album.ClearTracks();
 
-            foreach (var trackRequest in tracksRequest)
+            foreach (IUpdateTrackRequest trackRequest in requests)
             {
                 IEnumerable<Artist> featuredArtists;
                 if (trackRequest.FeaturedArtistsIds != null)

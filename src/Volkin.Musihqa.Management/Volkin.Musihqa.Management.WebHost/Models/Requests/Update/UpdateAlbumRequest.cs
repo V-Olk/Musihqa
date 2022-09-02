@@ -1,5 +1,4 @@
 ﻿using Volkin.Musihqa.Management.Domain.Requests.Albums;
-using Volkin.Musihqa.Management.Domain.Requests.Tracks;
 
 namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Update
 {
@@ -12,8 +11,9 @@ namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Update
         public string? CoverLink { get; init; }
         public DateTime ReleaseDate { get; init; }
 
-        public List<Guid>? FeaturedArtistsIds { get; init; }
+        public IReadOnlyCollection<Guid>? FeaturedArtistsIds { get; init; }
 
-        public List<IUpdateTrackRequest>? TracksRequest { get; init; }
+        public IReadOnlyCollection<UpdateTrackRequest>? UpdateTracksRequests { get; init; }
+
     }
 }

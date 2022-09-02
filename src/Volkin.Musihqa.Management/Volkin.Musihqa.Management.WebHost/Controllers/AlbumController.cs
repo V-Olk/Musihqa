@@ -70,7 +70,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         ///         "name": "Requiem updated",
         ///         "coverLink": "https://upload.wikimedia.org/wikipedia/en/4/43/Korn_-_Requiem.png",
         ///         "primaryArtist": "071ac86c-db64-4548-8e24-9af58d036084",
-        ///         "tracksRequest": [
+        ///         "updateTracksRequests": [
         ///             {
         ///                 "trackId": "b63de284-a032-4c4f-9d51-37ff409b15ae",
         ///                 "trackName": "Forgotten updated"
@@ -82,10 +82,10 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         ///         ]
         ///     }
         /// </remarks>
-        [HttpPut("{id:guid}")]
+        [HttpPut]
         public async Task<ActionResult<AlbumResponse>> UpdateAlbumAsync(UpdateAlbumRequest request, CancellationToken cancellationToken)
         {
-            UpdateAlbumResult createAlbumResult = await Send(new UpdateAlbumCommand(request), cancellationToken);
+            UpdateAlbumResult createAlbumResult = await Send(new UpdateAlbumCommand(request, request.UpdateTracksRequests), cancellationToken);
 
             return new AlbumResponse(createAlbumResult.Album);
         }
