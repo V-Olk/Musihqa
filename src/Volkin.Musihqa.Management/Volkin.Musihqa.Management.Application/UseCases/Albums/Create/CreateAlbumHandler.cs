@@ -2,6 +2,7 @@ using Volkin.Musihqa.Management.Application.Mappers;
 using Volkin.Musihqa.Management.Domain.Abstractions;
 using Volkin.Musihqa.Management.Domain.Exceptions;
 using Volkin.Musihqa.Management.Domain.Models.Management;
+using Volkin.Musihqa.Management.Domain.Requests.Albums;
 using Volkin.Musihqa.Management.Domain.Requests.Tracks;
 using Volkin.Musihqa.Management.Domain.UseCases.Handlers;
 
@@ -15,11 +16,11 @@ public class CreateAlbumHandler : ICommandHandler<CreateAlbumCommand, CreateAlbu
     {
         _managementUnitOfWork = managementUnitOfWork;
     }
-    
+
     public async Task<CreateAlbumResult> Handle(CreateAlbumCommand createAlbumCommand, CancellationToken cancellationToken)
     {
-        var request = createAlbumCommand.Request;
-        
+        ICreateAlbumRequest request = createAlbumCommand.Request;
+
         Artist? artist = await _managementUnitOfWork.Artist.GetByIdOrDefaultAsync(request.PrimaryArtist, cancellationToken);
         if (artist is null)
             throw new EntityNotFoundException(nameof(_managementUnitOfWork.Artist), request.PrimaryArtist);
@@ -31,15 +32,17 @@ public class CreateAlbumHandler : ICommandHandler<CreateAlbumCommand, CreateAlbu
             featuredArtists = await _managementUnitOfWork.Artist.GetByIdsAsync(request.FeaturedArtistsIds, cancellationToken);
 
         Album album = AlbumMapper.MapFromCreateRequest(request, artist, featuredArtists);
-        await CreateTrackList(request.TracksRequest!, album, cancellationToken);
+
+        if (createAlbumCommand.TracksRequests is not null)
+            await CreateTrackList(createAlbumCommand.TracksRequests, album, cancellationToken);
 
         await _managementUnitOfWork.Album.AddAsync(album, cancellationToken);
         await _managementUnitOfWork.CompleteAsync(cancellationToken);
 
         return new CreateAlbumResult(album);
     }
-    
-    private async Task CreateTrackList(List<ICreateTrackRequest> tracksRequest, Album album, CancellationToken cancellationToken)
+
+    private async Task CreateTrackList(IEnumerable<ICreateTrackRequest> tracksRequest, Album album, CancellationToken cancellationToken)
     {
         foreach (ICreateTrackRequest trackRequest in tracksRequest)
         {

@@ -1,5 +1,3 @@
-using Volkin.Musihqa.Management.Domain.Requests.Tracks;
-
 namespace Volkin.Musihqa.Management.Domain.Requests.Albums;
 
 public interface ICreateAlbumRequest
@@ -12,7 +10,5 @@ public interface ICreateAlbumRequest
 
     public Guid PrimaryArtist { get; init; }
 
-    public List<Guid>? FeaturedArtistsIds { get; init; }
-
-    public List<ICreateTrackRequest>? TracksRequest { get; init; }
+    public IReadOnlyCollection<Guid>? FeaturedArtistsIds { get; init; }
 }

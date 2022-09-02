@@ -53,7 +53,7 @@ namespace Volkin.Musihqa.Management.WebHost.Controllers
         [HttpPost]
         public async Task<ActionResult<AlbumResponse>> CreateAlbumAsync(CreateAlbumRequest request, CancellationToken cancellationToken)
         {
-            CreateAlbumResult createAlbumResult = await Send(new CreateAlbumCommand(request), cancellationToken);
+            CreateAlbumResult createAlbumResult = await Send(new CreateAlbumCommand(request, request.TracksRequest), cancellationToken);
             
             return CreatedAtAction("GetAlbum", new { id = createAlbumResult.Album.Id }, null);
         }

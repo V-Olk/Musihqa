@@ -1,5 +1,4 @@
 ﻿using Volkin.Musihqa.Management.Domain.Requests.Albums;
-using Volkin.Musihqa.Management.Domain.Requests.Tracks;
 
 namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Create
 {
@@ -13,8 +12,8 @@ namespace Volkin.Musihqa.Management.WebHost.Models.Requests.Create
 
         public Guid PrimaryArtist { get; init; }
 
-        public List<Guid>? FeaturedArtistsIds { get; init; }
+        public IReadOnlyCollection<Guid>? FeaturedArtistsIds { get; init; }
 
-        public List<ICreateTrackRequest>? TracksRequest { get; init; }
+        public IReadOnlyCollection<CreateTrackRequest>? TracksRequest { get; init; }
     }
 }
